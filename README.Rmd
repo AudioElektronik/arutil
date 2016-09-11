@@ -24,8 +24,6 @@ duplication. Include it in your packages `Imports` in `DESCRTIPTION` file.
 Install it like this: 
 
 ```{r, eval = FALSE}
-# It is a private repository
-devtools::install_github("AudioElektronik/arutil", 
-                         auth = Sys.getenv("GITHUB_KEY"))
+devtools::install_github("AudioElektronik/arutil")
 ````
 
