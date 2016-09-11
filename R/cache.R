@@ -65,7 +65,7 @@ db_location <- function(filename, path = NULL, pkg_name = NULL) {
     return(file.path(path, filename))
   }
 
-  pkg <- file.path(system.file("db", package = pkg_name))
+  pkg <- system.file(package = pkg_name)
   if (is_writeable(pkg)) return(file.path(pkg, filename))
 
   stop("Could not find writeable location to cache db", call. = FALSE)
