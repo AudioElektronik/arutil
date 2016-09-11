@@ -15,6 +15,12 @@ get_cache <- function(name) {
   get(name, envir = cache)
 }
 
+#' Caching computation in a local environment
+#'
+#' Computation is assigned a key, and everytime it's called, it is retrieed
+#' from a cache in local environment. This is different than memoise because
+#' connections can also be cached since they are put inside and environemnt.
+#' @export
 cache_computation <- function(name, computation) {
   if (is_cached(name)) {
     get_cache(name)
@@ -43,8 +49,13 @@ load_srcs <- function(f, src_names, quiet = NULL) {
   compact(setNames(srcs, src_names))
 }
 
-
-db_location <- function(path = NULL, filename) {
+#' Check that database location is writable
+#'
+#' @param path if there is a specific path for the db, this parameter is used
+#' @param pkg_name if there is no path, root of the pkg_name package is used
+#'
+#' @export
+db_location <- function(filename, path = NULL, pkg_name = NULL) {
   if (!is.null(path)) {
     # Check that path is a directory and is writeable
     if (!file.exists(path) || !file.info(path)$isdir) {
@@ -54,11 +65,8 @@ db_location <- function(path = NULL, filename) {
     return(file.path(path, filename))
   }
 
-  pkg <- file.path(system.file("db", package = "dplyr"))
+  pkg <- file.path(system.file("db", package = pkg_name))
   if (is_writeable(pkg)) return(file.path(pkg, filename))
-
-  tmp <- tempdir()
-  if (is_writeable(tmp)) return(file.path(tmp, filename))
 
   stop("Could not find writeable location to cache db", call. = FALSE)
 }
