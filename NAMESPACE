@@ -2,10 +2,12 @@
 
 export(cache_computation)
 export(db_location)
+export(fill_merged_cells)
 export(get_regex_pattern)
 export(human_mins)
 export(make_frame_utf8)
 export(remove_duplicate)
 export(status_update_fn_generator)
 export(strptime_tr)
+export(tl_currency_rates)
 export(tr_char_to_ascii)
