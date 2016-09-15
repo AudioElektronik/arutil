@@ -9,8 +9,21 @@ License: Private, only used within Audio Elektronik A.S. Turkey
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Imports:
-  gsubfn,
-  tibble,
-  dplyr,
-  lazyeval
-Suggests: testthat
+    gsubfn,
+    tibble,
+    dplyr,
+    lazyeval
+Suggests:
+    testthat
+Collate:
+    'cache.R'
+    'fill_merged_cells.R'
+    'get_regex_pattern.R'
+    'make_frame_utf8.R'
+    'istanbul.R'
+    'outlier.R'
+    'remove_duplicate.R'
+    'status_update_fn.R'
+    'strptime_tr.R'
+    'tl_currency_rates.R'
+    'tr_char_to_ascii.R'

@@ -1,3 +1,5 @@
+#' @include make_frame_utf8.R
+
 #' Dataset that matches Istanbul towns with the continent part
 #' @export
 town_to_istanbul_part <- tibble::frame_data(
@@ -40,7 +42,8 @@ town_to_istanbul_part <- tibble::frame_data(
   "Silivri",			"İstanbul (Avrupa)",
   "Şişli",		  	"İstanbul (Avrupa)",
   "Sultangazi",		"İstanbul (Avrupa)",
-  "Zeytinburnu",	"İstanbul (Avrupa)")
+  "Zeytinburnu",	"İstanbul (Avrupa)") %>%
+  make_frame_utf8()
 
 #' Add Istanbul continent part to city
 #'
@@ -51,18 +54,13 @@ town_to_istanbul_part <- tibble::frame_data(
 #' @param frame A frame with \code{city} and \code{town} variables.
 #' @export
 add_istanbul_part <- function(frame){
-  frame %>%
-    # Taking data with town İstanbul
-    dplyr::filter(city != "İstanbul") %>%
+  town_city_map <- as.data.frame(town_to_istanbul_part) %>%
+    tibble::column_to_rownames("town")
 
-    # Adding the new data with İstanbul parts
-    dplyr::bind_rows(
-      # Preparing the new İstanbul data
-      frame %>%
-        dplyr::filter(city == "İstanbul") %>%
-        dplyr::select(-city) %>% # This will come from `town_to_istanbul_part`
-        dplyr::left_join(town_to_istanbul_part, by = "town")
-    )
+  frame %>%
+    dplyr::mutate(city = ifelse(city == "İstanbul",
+                                town_city_map[town, "city"],
+                                city))
 }
 
 #' @importFrom dplyr %>%
