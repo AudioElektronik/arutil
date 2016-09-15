@@ -11,5 +11,6 @@ RoxygenNote: 5.0.1
 Imports:
   gsubfn,
   tibble,
-  dplyr
+  dplyr,
+  lazyeval
 Suggests: testthat
