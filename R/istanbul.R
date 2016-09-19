@@ -43,7 +43,8 @@ town_to_istanbul_part <- tibble::frame_data(
   "Şişli",		  	"İstanbul (Avrupa)",
   "Sultangazi",		"İstanbul (Avrupa)",
   "Zeytinburnu",	"İstanbul (Avrupa)") %>%
-  make_frame_utf8()
+  make_frame_utf8() %>%
+  {setNames(.$city, .$town)}
 
 #' Add Istanbul continent part to city
 #'
@@ -54,12 +55,9 @@ town_to_istanbul_part <- tibble::frame_data(
 #' @param frame A frame with \code{city} and \code{town} variables.
 #' @export
 add_istanbul_part <- function(frame){
-  town_city_map <- as.data.frame(town_to_istanbul_part) %>%
-    tibble::column_to_rownames("town")
-
   frame %>%
     dplyr::mutate(city = ifelse(city == "İstanbul",
-                                town_city_map[town, "city"],
+                                town_to_istanbul_part[town],
                                 city))
 }
 
