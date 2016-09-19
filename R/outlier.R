@@ -12,11 +12,6 @@
 #'
 #' @export
 discard_outliers <- function(frame, value_var, percentile = 0.025) {
-  # Helper function to check if a value is between a range
-  between <- function(x, min_max) {
-    (x > min_max[1] & x < min_max[2])
-  }
-
   # Preparing percentile probs
   probs <- c(percentile, 1 - percentile)
 
